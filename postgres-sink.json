@@ -1,0 +1,17 @@
+{"name": "postgres-sink",
+  "config": 
+  {"connector.class":"io.debezium.connector.jdbc.JdbcSinkConnector",
+    "tasks.max":"1",
+    "topics": "student.public.student",
+    "connection.url": "jdbc:postgresql://postgres-destinations:5432/destinations",
+    "connection.username": "docker",
+    "connection.password": "docker",
+    "auto.create": "true",
+    "auto.evolve": "true",
+    "insert.mode": "upsert",
+    "primary.key.fields": "id",
+    "primary.key.mode": "record_key",
+    "table.name.format": "student",
+    "schema.evolution": "basic"
+  }
+}
