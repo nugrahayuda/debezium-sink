@@ -18,8 +18,8 @@ curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json"
 
 
 
-
 sudo docker exec -it 380a93d95da6 bash
+docker-compose exec -it postgres bash
 
 psql -U docker exampledb -w
 CREATE TABLE student (id integer primary key, name varchar);
