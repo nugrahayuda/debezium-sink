@@ -22,10 +22,14 @@ curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" 
 ```bash
 docker-compose exec -it postgres bash
 ```
+Get in to the database source container
 
 ```bash
-Create the database
 psql -U docker exampledb -w
+```
+Create the database
+
+```bash
 CREATE TABLE student (id integer primary key, name varchar);
 ALTER TABLE public.student REPLICA IDENTITY FULL;
 ```
@@ -33,10 +37,10 @@ ALTER TABLE public.student REPLICA IDENTITY FULL;
 6. Run kafka to consume the data from connection
 
 ```bash
-sudo docker run --tty --network debezium_default confluentinc/cp-kafkacat kafkacat -b kafka:9092 -C -s key=s -s value=avro -r http://schema-registry:8081 -t postgres.public.student
+sudo docker run --tty --network debezium_default confluentinc/cp-kafkacat kafkacat -b kafka:9092 -C -t student.public.student
 ```
 
-7. Insert the data into the database
+7. Insert the data into the source database
 
 ```bash
 INSERT INTO student (id, name) VALUES (1, 'Jhon');
@@ -52,9 +56,19 @@ curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" 
 
 10. Prepare table
 
+Get in the source database
+
 ```bash
 psql -U docker destinations -w
+```
+Create table (actually don't need because we set auto create table if not exist)
+
+```bash
 CREATE TABLE student (id integer primary key, name varchar);
 ```
 
 11. Verify the results. If successfull you can see your data from source database apear here.
+```bash
+SELECT * FROM student LIMIT 100;
+```
+
