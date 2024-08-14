@@ -7,9 +7,12 @@ POSRTGRES >>> DEBEZIUM >>> KAFKA >>> JDBC SINK >>> POSRGRES
 
 Here we will implement setup step by step:
 
-1. Download docker
-2. Create docker compose from docker-compose.yml
-3. Make sure that docker compose runs successfully with docker-compose ps
+1. Download docker https://www.docker.com/get-started/
+2. Create docker compose from docker-compose.yml https://github.com/nugrahayuda/debezium-sink/blob/main/docker-compose.yml
+3. Make sure that docker compose runs successfully 
+```bash
+docker-compose ps
+```
 4. Create connection to Debezium:
 
 ```bash
